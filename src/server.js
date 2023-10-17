@@ -5,7 +5,8 @@ import { router} from "./routes/productsRouter.js";
 import mongoose from "mongoose";
 import cartsRouter from "./routes/cartsRouter.js";
 import productsRouter from "./routes/productsRouter.js";
-
+import ProductManager from "./controllers/ProductManager.js";
+import CartManager from "./controllers/CartManager.js";
 
 /*********config inicial**********/
 const app = express();
@@ -16,18 +17,19 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public"));
 app.use('/products', router);
-app.use('/', viewsRouter);
+//app.use('/', viewsRouter);//vista template html del cliente
 
 /********handlebars***************************/
 app.engine("handlebars", handlebars.engine());
 app.set("views", __dirname + "/views");
 app.set("view engine", "handlebars");
-//css static
-app.use('/', express.static(__dirname +"/public"))
 
-const PORT = 8080;
+// static
+app.use('/', express.static(__dirname + "/public"))
+
 
 /********Conexion mostrando el puerto********/
+const PORT = 8080;
 const httpServer = app.listen(PORT, () => {
     console.log("Escuchando en puerto " + PORT);
 });
@@ -39,13 +41,13 @@ app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
 
 /********Config mongoose**********************/
-
+//uri super conjunto de url http
 mongoose.connect( "mongodb+srv://beatriz1712sc:soynuevabasededatos@cluster0.2gm0bzy.mongodb.net/test")
 .then(()=>{
     console.log("Conectada a la base de datos");
 })
 .catch(error => 
-    console.error("Error al conectar a la base de datos"))
+    console.error("Error al conectar a la base de datos",error))
 
  
 

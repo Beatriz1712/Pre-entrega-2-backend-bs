@@ -1,4 +1,5 @@
-import fs from "fs"
+import fs from "fs";
+import {productsModel} from '../models/products.model.js'
 
 export default class ProductManager {
     constructor(path) {
@@ -70,7 +71,7 @@ export default class ProductManager {
         } else return "Error"
 
     }
-    //falta
+    //
     updateProduct = async (id, keysObject) => {
         let products = await this.getProducts()
         if (Array.isArray(products)) {

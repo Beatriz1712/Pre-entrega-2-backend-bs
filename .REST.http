@@ -34,17 +34,29 @@ DELETE http://localhost:8080/api/carts/651e28a062df8bb8e11424e4
 ###
 GET http://localhost:8080/api/products 
 
+//trae por Id
+###
+GET http://localhost:8080/api/products/651eaf1cd5d57de4db098b56
+
+//probando querys
+###
+GET http://localhost:8080/api/products?limit=2&page=2
+
+//probando sort
+###
+GET http://localhost:8080/api/products?sort=1
+
 ###
 POST http://localhost:8080/api/products
 Content-Type: application/json
 
 {
        
-    "title":"producto 5",
-    "description":"descripcion 5",
-    "price":500,
-    "code":"088",
-    "stock" :800
+    "title":"producto 11",
+    "description":"descripcion 11",
+    "price":800,
+    "code":"189",
+    "stock":800
     
 }
 
@@ -63,7 +75,7 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:8080/api/products/651eaf58d5d57de4db098b58 
+DELETE http://localhost:8080/api/products/651ef393baa49f2234aa6ec9
 
 //********************MENSAJES********************************
 
