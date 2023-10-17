@@ -5,8 +5,8 @@ import { router} from "./routes/productsRouter.js";
 import mongoose from "mongoose";
 import cartsRouter from "./routes/cartsRouter.js";
 import productsRouter from "./routes/productsRouter.js";
-import ProductManager from "./controllers/ProductManager.js";
-import CartManager from "./controllers/CartManager.js";
+import ProductManager from "./Daos/Mongo/ProductManager.js";
+import CartManager from "./Daos/Mongo/CartManager.js";
 
 /*********config inicial**********/
 const app = express();
@@ -35,10 +35,10 @@ const httpServer = app.listen(PORT, () => {
 });
 
 
-
 /**********rutas del CRUD de carts  y products*****middleware**********/
 app.use('/api/products', productsRouter);
 app.use('/api/carts', cartsRouter);
+
 
 /********Config mongoose**********************/
 //uri super conjunto de url http

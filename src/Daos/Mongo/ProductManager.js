@@ -1,10 +1,21 @@
 import fs from "fs";
-import {productsModel} from '../models/products.model.js'
+import {productsModel} from '../../models/products.model.js'
 
-export default class ProductManager {
-    constructor(path) {
-        this.path = path
+export default class ProductManagerMongo {
+    constructor() {
+        this.model = productsModel
     }
+    getProducts(){}
+    getProducts(pid){}
+    async createProduct(newProduct){
+        return await this.model.create(newProduct)
+    }
+    updateProduct(pid){}
+    deleteProduct(pid){}
+}
+
+
+    /*
     addProduct = async (productEn) => {
         const { title, description, code, price, stock, img } = productEn
 
@@ -159,7 +170,7 @@ export default class ProductManager {
 
 }
 
-
-
+}
+*/
 
 

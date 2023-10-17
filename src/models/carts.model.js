@@ -3,33 +3,21 @@ import mongoose from 'mongoose';
 const cartsCollection  = 'carts';
 const cartsSchema = new mongoose.Schema({
 
-    products: [
-        {
-          productId: {
-            type : mongoose.Schema.Types.ObjectId,
-            ref: 'products'
-          },
+    products: {
+       type :[{
+        product: {
+          type:  mongoose.Schema.Types.ObjectId,
+          ref: 'products'
         },
-    ],
+        quantity: Number
+       }] 
+    }                 
 })
 
-/*
-const cartsSchema = new mongoose.Schema({
-    description:{
-        type: String,
-        max:50,
-        required:true
-    },
-    quantity: {
-        type: Number,
-        required: true
-    },
-    total: {
-        type: Number,
-        required: true
-    }
+cartsSchema.pre('findOne', function(){
+    this.populate('products.product')
 })
-*/
+
 export const cartsModel=mongoose.model(cartsCollection, cartsSchema)
 //metodos acciones para interactuar con la base de datos
-//module.exports = {userModel}
+

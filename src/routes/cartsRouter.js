@@ -1,56 +1,40 @@
 import { Router } from 'express';
 import {cartsModel} from '../models/carts.model.js'
+import CartManagerMongo from '../Daos/Mongo/CartManager.js';
 
 export const router = Router();
+       const serviceCarts = new CartManagerMongo()
+
 /********el id lo crea Atlas*********/
-/********se crea 4 end pouints*******/
-router.get("/", async (req, res) => {
+/********se crea end points*******/
+//by Id
+router.get("/:cid", async (req, res) => {
 
     try {
-        let carts = await cartsModel.find()
+        const {cid} = req.params
+        const cart = await serviceCarts.getCartById(cid)
         res.send({
             result:'success',
-            payload: carts
+            payload: cart
         })
     } catch (error) {
         res.status(500).json({ errror: error })
     }
 })
 
-router.post("/", async (req, res) => {
-    let{  description, quantity, total } = req.body
-    if ( !description  || !quantity || !total ) {
-            res.send({
-                status: 'error',
-                error: 'No se encontró parametros'
-            })
-        } 
-        let result= await cartsModel.create({
-            description, quantity, total   
-        })
-        res.send({
-            result: 'success',
-            payload: result
-        })
-})
+// /api/carts/:cid/products/pid
+router.put("/:cid/products/:pid", async (req, res) => {
+    const { cid , pid} = req.params
+    const {quantity} = req.body
+    
 
-router.put("/:cid", async (req, res) => {
-    let { cid } = req.params
-    let cartsToReplace = req.body
-    if(!cartsToReplace.description || !cartsToReplace.quantity ||
-      !cartsToReplace.total ){
-            res.send({
-                result: 'error',
-                error: 'Debe enviar un id de producto y datos a modificar'
-            })  
-    }
-    let result = await cartsModel.updateOne({
-        _id: cid }, cartsToReplace)
-    res.send({
-        result: 'success',
-        payload: result
-    })
+    const result = await serviceCarts.addProducToCart(cid, pid, quantity)
+    res.send({status: 'success',
+              payload: 'result'
 })
+    
+})
+// /api/carts - delete - /:cid/products/pid
 router.delete("/:cid", async (req, res) => {
     let { cid } = req.params
     let result = await cartsModel.deleteOne({
@@ -60,5 +44,12 @@ router.delete("/:cid", async (req, res) => {
             payload: result  
         })
 })
+// PUT  /api/carts - PUT - /:cid
+router.put("/:cid", async (req, res) =>{
 
+})
+//   /api/carts - delete - /:cid
+router.delete("/:cid", async (req, res) =>{
+
+})
 export default router

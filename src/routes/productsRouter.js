@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import {productsModel} from '../models/products.model.js'
-import ProductManager from "../../src/controllers/ProductManager.js"
+import ProductManagerMongo from "../Daos/Mongo/ProductManager.js"
 //const db = new ProductManager("productos.json")
 
 //api/products/
 
 export const router = Router();
-const product = new ProductManager();
+const serviceProducts = new ProductManagerMongo();
 
 //trae todos los productos
 
@@ -39,18 +39,17 @@ router.get('/:pid', async (req, res) => {
 //crea productos
 router.post("/", async (req, res) => {
     try{
-        let{ title, description, code, price, stock } = req.body
-        if (!title ||  !description  || !code || !price  ||!stock  ) {
+        const newProduct = req.body
+        //let{ title, description, code, price, stock } = req.body
+        if (!newProduct.title ||  !newProduct.description  || !newProduct.code || !newProduct.price  ||!newProduct.stock  ) {
                 res.send({
                     status: 'error',
                     error: 'No se encontró todos los parametros'
                 })
-            }  // error: "Datos incompletos" })
-            let result= await productsModel.create({
-                title, description, code, price, stock   
-            })
+            }  
+            let result= await serviceProducts.create(newProduct)
             res.send({
-                result: 'success',
+                status: 'success',
                 payload: result
             })
     } catch (error) {

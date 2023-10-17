@@ -1,6 +1,0 @@
-class UserManagerMongo {
-    constructor(){
-    
-    }
-    
-}
