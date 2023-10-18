@@ -2,8 +2,8 @@ import { Router } from 'express';
 import {productsModel} from '../models/products.model.js'
 import ProductManagerMongo from "../Daos/Mongo/ProductManager.js"
 
-
-export const router = Router();
+export const router
+ = Router();
 const serviceProducts = new ProductManagerMongo();
 
 //trae todos los productos
