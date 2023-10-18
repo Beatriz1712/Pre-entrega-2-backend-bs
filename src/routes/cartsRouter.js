@@ -7,7 +7,7 @@ export const router = Router();
 
 /********el id lo crea Atlas*********/
 /********se crea end points*******/
-//by Id
+//trae carrito by Id
 router.get("/:cid", async (req, res) => {
 
     try {
@@ -18,7 +18,7 @@ router.get("/:cid", async (req, res) => {
             payload: cart
         })
     } catch (error) {
-        res.status(500).json({ errror: error })
+        res.status(500).json({ error: error })
     }
 })
 
@@ -28,14 +28,14 @@ router.put("/:cid/products/:pid", async (req, res) => {
     const {quantity} = req.body
     
 
-    const result = await serviceCarts.addProducToCart(cid, pid, quantity)
+    const result= await serviceCarts.addProducToCart(cid, pid, quantity)
     res.send({status: 'success',
-              payload: 'result'
+              payload: result
 })
     
 })
-// /api/carts - delete - /:cid/products/pid
-router.delete("/:cid", async (req, res) => {
+// /api/carts/:cid/products/pid
+router.delete("/:cid/products/pid", async (req, res) => {
     let { cid } = req.params
     let result = await cartsModel.deleteOne({
         _id: cid })
@@ -44,11 +44,11 @@ router.delete("/:cid", async (req, res) => {
             payload: result  
         })
 })
-// PUT  /api/carts - PUT - /:cid
+//  /api/carts/:cid
 router.put("/:cid", async (req, res) =>{
 
 })
-//   /api/carts - delete - /:cid
+//  /api/carts/:cid
 router.delete("/:cid", async (req, res) =>{
 
 })

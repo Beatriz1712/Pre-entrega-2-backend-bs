@@ -29,7 +29,7 @@ app.use('/', express.static(__dirname + "/public"))
 
 
 /********Conexion mostrando el puerto********/
-const PORT = 8080;
+const PORT = 8081;
 const httpServer = app.listen(PORT, () => {
     console.log("Escuchando en puerto " + PORT);
 });

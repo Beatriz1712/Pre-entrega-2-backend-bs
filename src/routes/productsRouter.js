@@ -1,18 +1,16 @@
 import { Router } from 'express';
 import {productsModel} from '../models/products.model.js'
 import ProductManagerMongo from "../Daos/Mongo/ProductManager.js"
-//const db = new ProductManager("productos.json")
 
-//api/products/
 
 export const router = Router();
 const serviceProducts = new ProductManagerMongo();
 
 //trae todos los productos
-
 router.get('/',async(req,res) => {
-    const {limit=10, page= 1, sort= 1} = req.query
-    const products = await productsModel.paginate({},{ limit: parseInt(limit), page: parseInt(page), sort, lean: true})
+    const {limit = 10, page= 1, order=1, category} = req.query
+    const filtro = category ? {category} : {}
+    const products = await productsModel.paginate({},{ limit: parseInt(limit), page: parseInt(page), sort: {price: parseInt(order)}, lean: true})
    
     if(!products){
         res.send({status: 'error', error: 'No se encontraron productos'})

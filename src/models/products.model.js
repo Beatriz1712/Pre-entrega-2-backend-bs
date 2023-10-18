@@ -37,4 +37,4 @@ const productsSchema = new mongoose.Schema({
 //paginacion
 productsSchema.plugin(mongoosePaginate)
 
-export const productsModel =mongoose.model(productsCollection, productsSchema)
+export const productsModel = mongoose.model(productsCollection, productsSchema)

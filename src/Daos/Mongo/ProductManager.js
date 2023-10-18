@@ -5,8 +5,14 @@ export default class ProductManagerMongo {
     constructor() {
         this.model = productsModel
     }
-    getProducts(){}
-    getProducts(pid){}
+    async getProducts({limit=10, page=1, sort=1}){
+        return await this.model.paginate({}, {limit, page, sort, lean: true})
+    }
+
+    async getProducts(pid){
+        return await this.model.findOne(pid)
+    }
+
     async createProduct(newProduct){
         return await this.model.create(newProduct)
     }

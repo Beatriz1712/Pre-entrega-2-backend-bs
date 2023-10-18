@@ -18,6 +18,6 @@ cartsSchema.pre('findOne', function(){
     this.populate('products.product')
 })
 
-export const cartsModel=mongoose.model(cartsCollection, cartsSchema)
+export const cartsModel = mongoose.model(cartsCollection, cartsSchema)
 //metodos acciones para interactuar con la base de datos
 
